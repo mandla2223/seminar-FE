@@ -1,1 +1,55 @@
 /* You can add global styles to this file, and also import other style files */
+
+:root {
+  --color-primary: #7b2d8e;
+  --color-primary-dark: #4d1a5a;
+  --color-primary-light: #a64ca6;
+  --color-accent: #e91e8c;
+  --color-accent-dark: #c2157a;
+  --color-dark: #201b2b;
+  --color-light-bg: #f8f3fb;
+  --color-success: #1a9c6b;
+  --color-success-bg: #e5f9f1;
+  --color-error: #e63946;
+  --color-error-bg: #fdecee;
+  --font-heading: 'Poppins', 'Segoe UI', sans-serif;
+  --font-body: 'Inter', 'Segoe UI', sans-serif;
+  --gradient-brand: linear-gradient(135deg, var(--color-primary-light) 0%, var(--color-primary) 55%, var(--color-primary-dark) 100%);
+  --gradient-accent: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-dark) 100%);
+  --shadow-sm: 0 2px 8px rgba(90, 31, 104, 0.10);
+  --shadow-md: 0 8px 24px rgba(90, 31, 104, 0.14);
+  --shadow-lg: 0 20px 45px rgba(90, 31, 104, 0.22);
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 22px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--color-light-bg);
+  color: #29222f;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-heading);
+  margin: 0;
+}
+
+button {
+  font-family: inherit;
+}
+
+a {
+  color: inherit;
+}

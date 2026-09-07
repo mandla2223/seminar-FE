@@ -1,0 +1,311 @@
+<div class="seminar-page">
+
+  <!-- HERO -->
+  <section class="hero">
+
+    <div class="hero-content">
+
+      <img
+        class="hero-logo"
+        src="assets/logo.svg"
+        alt="Infini Innovation (PTY) LTD logo"
+      />
+
+      <p class="hero-eyebrow">Professional. Reliable. Compliant. Committed.</p>
+
+      <h1 class="hero-title">Infini Innovation (PTY) LTD</h1>
+
+      <p class="hero-tagline">Clean Spaces. Better Places.</p>
+
+      <p class="hero-description">
+        Infini Innovation (Pty) Ltd is a black female-owned, 100% South African company
+        providing professional facilities management and cleaning solutions to industrial,
+        commercial and public sector clients. Register your interest below and our team
+        will be in touch.
+      </p>
+
+      <ul class="hero-badges">
+        <li>🏆 NCCA Member</li>
+        <li>🤝 Black Female-Owned &amp; Managed</li>
+        <li>✅ Quality, Safety, Health &amp; Environment Committed</li>
+      </ul>
+
+    </div>
+
+  </section>
+
+  <!-- REGISTRATION FORM -->
+  <section class="form-section">
+
+    <div class="form-card">
+
+      <h2 class="form-title">Seminar Registration</h2>
+
+      <p class="form-subtitle">
+        Please complete the form below and one of our consultants will follow up with you.
+      </p>
+
+      <form
+        #leadForm="ngForm"
+        (ngSubmit)="submitForm()"
+        class="lead-form">
+
+        <div class="form-grid">
+
+          <!-- FULL NAME -->
+          <div class="form-field">
+
+            <label for="fullName">Full Name <span class="required-mark">*</span></label>
+
+            <input
+              id="fullName"
+              type="text"
+              name="fullName"
+              placeholder="e.g. Thabo Nkosi"
+              [(ngModel)]="lead.fullName"
+              #fullNameModel="ngModel"
+              required
+            />
+
+            <small
+              class="field-error"
+              *ngIf="fullNameModel.invalid && (fullNameModel.dirty || fullNameModel.touched)">
+              Full name is required.
+            </small>
+
+          </div>
+
+          <!-- COMPANY -->
+          <div class="form-field">
+
+            <label for="companyOrganisation">Company / Organisation <span class="required-mark">*</span></label>
+
+            <input
+              id="companyOrganisation"
+              type="text"
+              name="companyOrganisation"
+              placeholder="e.g. Acme Facilities"
+              [(ngModel)]="lead.companyOrganisation"
+              #companyModel="ngModel"
+              required
+            />
+
+            <small
+              class="field-error"
+              *ngIf="companyModel.invalid && (companyModel.dirty || companyModel.touched)">
+              Company / organisation is required.
+            </small>
+
+          </div>
+
+          <!-- POSITION -->
+          <div class="form-field">
+
+            <label for="position">Position <span class="required-mark">*</span></label>
+
+            <input
+              id="position"
+              type="text"
+              name="position"
+              placeholder="e.g. Operations Manager"
+              [(ngModel)]="lead.position"
+              #positionModel="ngModel"
+              required
+            />
+
+            <small
+              class="field-error"
+              *ngIf="positionModel.invalid && (positionModel.dirty || positionModel.touched)">
+              Position is required.
+            </small>
+
+          </div>
+
+          <!-- MOBILE -->
+          <div class="form-field">
+
+            <label for="mobileNumber">Mobile Number <span class="required-mark">*</span></label>
+
+            <input
+              id="mobileNumber"
+              type="tel"
+              name="mobileNumber"
+              placeholder="0821234567"
+              inputmode="numeric"
+              pattern="[0-9]{10}"
+              maxlength="10"
+              autocomplete="off"
+              [ngModel]="lead.mobileNumber"
+              (ngModelChange)="onMobileNumberChange($event)"
+              #mobileModel="ngModel"
+              required
+            />
+
+            <small
+              class="field-error"
+              *ngIf="mobileModel.invalid && (mobileModel.dirty || mobileModel.touched)">
+              {{
+                mobileModel.errors?.['required']
+                  ? 'Mobile number is required.'
+                  : 'Enter a valid 10-digit mobile number.'
+              }}
+            </small>
+
+          </div>
+
+          <!-- EMAIL -->
+          <div class="form-field">
+
+            <label for="emailAddress">Email Address <span class="required-mark">*</span></label>
+
+            <input
+              id="emailAddress"
+              type="email"
+              name="emailAddress"
+              placeholder="you@company.com"
+              [(ngModel)]="lead.emailAddress"
+              #emailModel="ngModel"
+              email
+              required
+            />
+
+            <small
+              class="field-error"
+              *ngIf="emailModel.invalid && (emailModel.dirty || emailModel.touched)">
+              {{
+                emailModel.errors?.['required']
+                  ? 'Email address is required.'
+                  : 'Enter a valid email address.'
+              }}
+            </small>
+
+          </div>
+
+          <!-- PRODUCT / SERVICE -->
+          <div class="form-field form-field--full">
+
+            <label for="productServiceRequired">Product / Service Required <span class="required-mark">*</span></label>
+
+            <textarea
+              id="productServiceRequired"
+              name="productServiceRequired"
+              placeholder="Tell us what you're looking for..."
+              rows="4"
+              [(ngModel)]="lead.productServiceRequired"
+              #productModel="ngModel"
+              required>
+            </textarea>
+
+            <small
+              class="field-error"
+              *ngIf="productModel.invalid && (productModel.dirty || productModel.touched)">
+              Please tell us which product / service you need.
+            </small>
+
+          </div>
+
+          <!-- INTERESTS -->
+          <div class="form-field form-field--full">
+
+            <p class="section-label">I am interested in:</p>
+
+            <div class="checkbox-row">
+
+              <label class="checkbox-pill">
+                <input
+                  type="checkbox"
+                  name="interestedInQuotation"
+                  [(ngModel)]="lead.interestedInQuotation"
+                />
+                <span>Quotation</span>
+              </label>
+
+              <label class="checkbox-pill">
+                <input
+                  type="checkbox"
+                  name="interestedInPartnership"
+                  [(ngModel)]="lead.interestedInPartnership"
+                />
+                <span>Partnership</span>
+              </label>
+
+              <label class="checkbox-pill">
+                <input
+                  type="checkbox"
+                  name="interestedInMeeting"
+                  [(ngModel)]="lead.interestedInMeeting"
+                />
+                <span>Meeting</span>
+              </label>
+
+            </div>
+
+          </div>
+
+          <!-- CONSENT -->
+          <div class="form-field form-field--full">
+
+            <label class="checkbox-pill checkbox-pill--consent">
+              <input
+                type="checkbox"
+                name="consentToBeContacted"
+                [(ngModel)]="lead.consentToBeContacted"
+                #consentModel="ngModel"
+                required
+              />
+              <span>I consent to being contacted regarding the information provided. <span class="required-mark">*</span></span>
+            </label>
+
+            <small
+              class="field-error"
+              *ngIf="consentModel.invalid && (consentModel.dirty || consentModel.touched)">
+              Consent is required before we can submit your registration.
+            </small>
+
+          </div>
+
+        </div>
+
+        <!-- SUCCESS MESSAGE -->
+        <div
+          *ngIf="successMessage"
+          class="alert alert-success">
+
+          <span class="alert-icon">✓</span>
+
+          <p>{{ successMessage }}</p>
+
+        </div>
+
+        <!-- ERROR MESSAGE -->
+        <div
+          *ngIf="errorMessage"
+          class="alert alert-error">
+
+          <span class="alert-icon">!</span>
+
+          <p>{{ errorMessage }}</p>
+
+        </div>
+
+        <!-- SUBMIT -->
+        <button
+          type="submit"
+          class="btn-submit"
+          [disabled]="leadForm.invalid || isSubmitting">
+
+          {{
+            isSubmitting
+              ? 'Submitting...'
+              : 'Submit Registration'
+          }}
+
+        </button>
+
+      </form>
+
+    </div>
+
+  </section>
+
+</div>

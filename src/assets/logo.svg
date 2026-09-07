@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" role="img" aria-label="Infini Innovation logo">
+  <defs>
+    <linearGradient id="infiniGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#a64ca6"/>
+      <stop offset="100%" stop-color="#5a1f68"/>
+    </linearGradient>
+  </defs>
+  <rect width="200" height="200" rx="42" fill="url(#infiniGrad)"/>
+  <rect x="52" y="34" width="11" height="122" rx="3" fill="#ffffff"/>
+  <polygon points="57,40 158,66 57,74" fill="#ffffff"/>
+  <rect x="140" y="66" width="5" height="34" fill="#ffffff"/>
+  <rect x="97" y="112" width="28" height="52" rx="2" fill="#ffffff"/>
+  <rect x="129" y="90" width="34" height="74" rx="2" fill="#ffffff"/>
+  <rect x="104" y="122" width="7" height="9" fill="#5a1f68"/>
+  <rect x="115" y="122" width="7" height="9" fill="#5a1f68"/>
+  <rect x="104" y="138" width="7" height="9" fill="#5a1f68"/>
+  <rect x="115" y="138" width="7" height="9" fill="#5a1f68"/>
+  <rect x="136" y="100" width="8" height="10" fill="#5a1f68"/>
+  <rect x="149" y="100" width="8" height="10" fill="#5a1f68"/>
+  <rect x="136" y="118" width="8" height="10" fill="#5a1f68"/>
+  <rect x="149" y="118" width="8" height="10" fill="#5a1f68"/>
+  <rect x="136" y="136" width="8" height="10" fill="#5a1f68"/>
+  <rect x="149" y="136" width="8" height="10" fill="#5a1f68"/>
+</svg>

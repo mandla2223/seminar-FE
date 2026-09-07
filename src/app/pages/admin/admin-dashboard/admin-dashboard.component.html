@@ -1,0 +1,224 @@
+<div class="admin-dashboard">
+
+
+  <!-- HEADER -->
+
+  <header class="dashboard-header">
+
+    <div class="header-brand">
+
+      <img
+        class="header-logo"
+        src="assets/logo.svg"
+        alt="Infini Innovation (PTY) LTD logo"
+      />
+
+      <div>
+
+        <p class="header-greeting">Hello Refiloe! 👋</p>
+
+        <h1>Seminar Leads</h1>
+
+        <p>View all submitted seminar registrations.</p>
+
+      </div>
+
+    </div>
+
+
+    <div class="header-actions">
+
+      <button
+        type="button"
+        class="btn btn-secondary"
+        (click)="loadLeads()">
+
+        Refresh
+
+      </button>
+
+
+      <button
+        type="button"
+        class="btn btn-export"
+        [disabled]="leads.length === 0"
+        (click)="exportToCsv()">
+
+        Export CSV
+
+      </button>
+
+
+      <button
+        type="button"
+        class="btn btn-export"
+        [disabled]="leads.length === 0"
+        (click)="exportToPdf()">
+
+        Export PDF
+
+      </button>
+
+
+      <button
+        type="button"
+        class="btn btn-logout"
+        (click)="logout()">
+
+        Logout
+
+      </button>
+
+    </div>
+
+  </header>
+
+
+  <!-- LOADING -->
+
+  <div
+    *ngIf="isLoading"
+    class="state-panel">
+
+    <p>Loading leads...</p>
+
+  </div>
+
+
+  <!-- ERROR -->
+
+  <div
+    *ngIf="errorMessage"
+    class="state-panel state-panel--error">
+
+    <p>{{ errorMessage }}</p>
+
+  </div>
+
+
+  <!-- NO LEADS -->
+
+  <div
+    *ngIf="!isLoading && leads.length === 0 && !errorMessage"
+    class="state-panel">
+
+    <p>No seminar registrations have been submitted yet.</p>
+
+  </div>
+
+
+  <!-- LEADS TABLE -->
+
+  <div
+    *ngIf="leads.length > 0"
+    class="table-wrapper">
+
+    <table>
+
+      <thead>
+
+        <tr>
+
+          <th>Full Name</th>
+          <th>Company / Organisation</th>
+          <th>Position</th>
+          <th>Mobile</th>
+          <th>Email</th>
+          <th>Product / Service</th>
+          <th>Quotation</th>
+          <th>Partnership</th>
+          <th>Meeting</th>
+          <th>Consent</th>
+          <th>Submitted</th>
+
+        </tr>
+
+      </thead>
+
+
+      <tbody>
+
+        <tr
+          *ngFor="let lead of pagedLeads; trackBy: trackByLeadId">
+
+
+          <td data-label="Full Name">{{ lead.fullName }}</td>
+
+          <td data-label="Company / Organisation">{{ lead.companyOrganisation }}</td>
+
+          <td data-label="Position">{{ lead.position }}</td>
+
+          <td data-label="Mobile">{{ lead.mobileNumber }}</td>
+
+          <td data-label="Email">{{ lead.emailAddress }}</td>
+
+          <td data-label="Product / Service">{{ lead.productServiceRequired }}</td>
+
+          <td data-label="Quotation">
+            <span class="tag" [class.tag--yes]="lead.interestedInQuotation">
+              {{ lead.interestedInQuotation ? 'Yes' : 'No' }}
+            </span>
+          </td>
+
+          <td data-label="Partnership">
+            <span class="tag" [class.tag--yes]="lead.interestedInPartnership">
+              {{ lead.interestedInPartnership ? 'Yes' : 'No' }}
+            </span>
+          </td>
+
+          <td data-label="Meeting">
+            <span class="tag" [class.tag--yes]="lead.interestedInMeeting">
+              {{ lead.interestedInMeeting ? 'Yes' : 'No' }}
+            </span>
+          </td>
+
+          <td data-label="Consent">
+            <span class="tag" [class.tag--yes]="lead.consentToBeContacted">
+              {{ lead.consentToBeContacted ? 'Yes' : 'No' }}
+            </span>
+          </td>
+
+          <td data-label="Submitted">{{ lead.submittedAt | date:'medium' }}</td>
+
+
+        </tr>
+
+      </tbody>
+
+    </table>
+
+    <!-- PAGINATION -->
+    <div
+      *ngIf="totalPages > 1"
+      class="pagination">
+
+      <button
+        type="button"
+        class="page-btn"
+        [disabled]="currentPage === 1"
+        (click)="goToPage(currentPage - 1)">
+
+        Prev
+
+      </button>
+
+      <span class="page-status">
+        Page {{ currentPage }} of {{ totalPages }}
+      </span>
+
+      <button
+        type="button"
+        class="page-btn"
+        [disabled]="currentPage === totalPages"
+        (click)="goToPage(currentPage + 1)">
+
+        Next
+
+      </button>
+
+    </div>
+
+  </div>
+
+
+</div>

@@ -1,0 +1,336 @@
+.seminar-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: var(--font-body);
+}
+
+/* ---------- HERO ---------- */
+
+.hero {
+  width: 100%;
+  background: var(--gradient-brand);
+  padding: 64px 24px 96px;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 85% 15%, rgba(233, 30, 140, 0.35), transparent 55%);
+  pointer-events: none;
+}
+
+.hero-content {
+  max-width: 760px;
+  text-align: center;
+  color: #ffffff;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-logo {
+  width: 84px;
+  height: 84px;
+  border-radius: 20px;
+  box-shadow: var(--shadow-lg);
+  margin-bottom: 20px;
+  animation: float 4s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+.hero-eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #f4d6ec;
+  margin: 0 0 10px;
+}
+
+.hero-title {
+  font-size: clamp(1.9rem, 4vw, 2.9rem);
+  font-weight: 800;
+  margin-bottom: 8px;
+  text-shadow: 0 4px 18px rgba(0, 0, 0, 0.2);
+}
+
+.hero-tagline {
+  font-size: clamp(1.1rem, 2.4vw, 1.5rem);
+  font-weight: 600;
+  color: #ffe6f7;
+  margin: 0 0 18px;
+}
+
+.hero-description {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #f3e6f7;
+  margin: 0 auto 28px;
+  max-width: 620px;
+}
+
+.hero-badges {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+}
+
+.hero-badges li {
+  background: rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(6px);
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+/* ---------- FORM SECTION ---------- */
+
+.form-section {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 0 20px;
+  margin-top: -60px;
+  margin-bottom: 60px;
+  position: relative;
+  z-index: 2;
+}
+
+.form-card {
+  width: 100%;
+  max-width: 860px;
+  background: #ffffff;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  padding: 40px clamp(20px, 4vw, 48px);
+}
+
+.form-title {
+  font-size: 1.7rem;
+  font-weight: 700;
+  color: var(--color-primary-dark);
+}
+
+.form-subtitle {
+  color: #6b6072;
+  margin: 8px 0 28px;
+  font-size: 0.95rem;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px 24px;
+}
+
+.form-field--full {
+  grid-column: 1 / -1;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-field label,
+.section-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-dark);
+}
+
+.required-mark {
+  color: var(--color-error);
+}
+
+.field-error {
+  font-size: 0.8rem;
+  color: var(--color-error);
+}
+
+.form-field input,
+.form-field textarea {
+  border: 1.5px solid #e5dbea;
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+  font-size: 0.95rem;
+  font-family: inherit;
+  color: #29222f;
+  background: #fbf9fc;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  resize: vertical;
+}
+
+.form-field input:focus,
+.form-field textarea:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  background: #ffffff;
+  box-shadow: 0 0 0 4px rgba(123, 45, 142, 0.12);
+}
+
+.form-field input.ng-invalid.ng-touched,
+.form-field textarea.ng-invalid.ng-touched {
+  border-color: var(--color-error);
+}
+
+/* ---------- CHECKBOXES ---------- */
+
+.checkbox-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.checkbox-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1.5px solid #e5dbea;
+  background: #fbf9fc;
+  padding: 10px 16px;
+  border-radius: 999px;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: #453c4c;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
+}
+
+.checkbox-pill input {
+  accent-color: var(--color-accent);
+  width: 16px;
+  height: 16px;
+}
+
+.checkbox-pill:has(input:checked) {
+  border-color: var(--color-primary);
+  background: rgba(123, 45, 142, 0.08);
+  color: var(--color-primary-dark);
+}
+
+.checkbox-pill--consent {
+  width: 100%;
+  border-radius: var(--radius-sm);
+}
+
+.checkbox-pill--consent:has(input.ng-invalid.ng-touched) {
+  border-color: var(--color-error);
+}
+
+/* ---------- ALERTS ---------- */
+
+.alert {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  margin-top: 24px;
+  font-size: 0.92rem;
+  animation: fade-in 0.35s ease;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.alert p {
+  margin: 0;
+}
+
+.alert-icon {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.8rem;
+}
+
+.alert-success {
+  background: var(--color-success-bg);
+  color: var(--color-success);
+}
+
+.alert-success .alert-icon {
+  background: var(--color-success);
+  color: #ffffff;
+}
+
+.alert-error {
+  background: var(--color-error-bg);
+  color: var(--color-error);
+}
+
+.alert-error .alert-icon {
+  background: var(--color-error);
+  color: #ffffff;
+}
+
+/* ---------- SUBMIT ---------- */
+
+.btn-submit {
+  width: 100%;
+  margin-top: 28px;
+  padding: 15px 20px;
+  border: none;
+  border-radius: 999px;
+  background: var(--gradient-accent);
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  box-shadow: var(--shadow-md);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+}
+
+.btn-submit:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+  filter: brightness(1.05);
+}
+
+.btn-submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* ---------- RESPONSIVE ---------- */
+
+@media (max-width: 720px) {
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero {
+    padding: 56px 20px 84px;
+  }
+
+  .form-card {
+    padding: 32px 20px;
+  }
+}
