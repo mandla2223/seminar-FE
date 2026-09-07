@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://localhost:7077'
+  apiUrl: 'https://infiniinnovations-fchnf2f5cadkephz.southafricanorth-01.azurewebsites.net'
 };
