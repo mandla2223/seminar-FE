@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
 
 import { AdminLogin } from '../../models/admin-login';
+import { environment } from '../../../environments/environment';
 
 export interface LoginResponse {
   message: string;
@@ -15,23 +16,20 @@ export interface LoginResponse {
 })
 export class AuthService {
 
-  private apiUrl = 'https://localhost:7077/api/Admin/login';
+  private apiUrl = `${environment.apiUrl}/api/Admin/login`;
 
   constructor(
     private http: HttpClient
   ) {}
 
   login(credentials: AdminLogin): Observable<LoginResponse> {
-
     return this.http
       .post<LoginResponse>(
         this.apiUrl,
         credentials
       )
       .pipe(
-
         tap(response => {
-
           localStorage.setItem(
             'jwtToken',
             response.token
@@ -41,59 +39,35 @@ export class AuthService {
             'tokenExpiresAt',
             response.expiresAt
           );
-
         })
-
       );
   }
 
   logout(): void {
-
-    localStorage.removeItem(
-      'jwtToken'
-    );
-
-    localStorage.removeItem(
-      'tokenExpiresAt'
-    );
-
+    localStorage.removeItem('jwtToken');
+    localStorage.removeItem('tokenExpiresAt');
   }
 
   isLoggedIn(): boolean {
+    const token = localStorage.getItem('jwtToken');
 
-    const token =
-      localStorage.getItem('jwtToken');
-
-    const expiresAt =
-      localStorage.getItem('tokenExpiresAt');
+    const expiresAt = localStorage.getItem('tokenExpiresAt');
 
     if (!token || !expiresAt) {
-
       return false;
-
     }
 
     const expiryTime = new Date(expiresAt).getTime();
 
-    // treat a missing/unparsable or elapsed expiry as logged out, and clear the stale session
     if (Number.isNaN(expiryTime) || expiryTime <= Date.now()) {
-
       this.logout();
-
       return false;
-
     }
 
     return true;
-
   }
 
   getToken(): string | null {
-
-    return localStorage.getItem(
-      'jwtToken'
-    );
-
+    return localStorage.getItem('jwtToken');
   }
-
 }

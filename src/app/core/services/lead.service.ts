@@ -4,15 +4,15 @@ import { Observable } from 'rxjs';
 import { retry, timeout } from 'rxjs/operators';
 
 import { Lead } from '../../models/lead';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LeadService {
 
-  private apiUrl = 'https://localhost:7077/api/Leads';
+  private apiUrl = `${environment.apiUrl}/api/Leads`;
 
-  // keeps the UI from hanging indefinitely if the API is slow or overloaded
   private requestTimeoutMs = 20000;
 
   constructor(
@@ -20,18 +20,15 @@ export class LeadService {
   ) {}
 
   submitLead(lead: Lead): Observable<Lead> {
-
     return this.http.post<Lead>(
       this.apiUrl,
       lead
     ).pipe(
-      // no retry here: a POST is not idempotent, retrying could create duplicate leads
       timeout(this.requestTimeoutMs)
     );
   }
 
   getLeads(): Observable<Lead[]> {
-
     return this.http.get<Lead[]>(
       this.apiUrl
     ).pipe(
@@ -41,7 +38,6 @@ export class LeadService {
   }
 
   getLead(id: number): Observable<Lead> {
-
     return this.http.get<Lead>(
       `${this.apiUrl}/${id}`
     ).pipe(
