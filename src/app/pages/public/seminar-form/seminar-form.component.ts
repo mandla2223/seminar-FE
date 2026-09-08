@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
+import { HttpErrorResponse } from '@angular/common/http';
+import { TimeoutError } from 'rxjs';
 
 import { LeadService } from '../../../core/services/lead.service';
 import { Lead } from '../../../models/lead';
@@ -17,35 +19,15 @@ import { Lead } from '../../../models/lead';
 })
 export class SeminarFormComponent {
 
+  @ViewChild('leadForm') leadFormRef?: NgForm;
+
   isSubmitting = false;
 
   successMessage = '';
 
   errorMessage = '';
 
-  lead: Lead = {
-
-    fullName: '',
-
-    companyOrganisation: '',
-
-    position: '',
-
-    mobileNumber: '',
-
-    emailAddress: '',
-
-    productServiceRequired: '',
-
-    interestedInQuotation: false,
-
-    interestedInPartnership: false,
-
-    interestedInMeeting: false,
-
-    consentToBeContacted: false
-
-  };
+  lead: Lead = this.getEmptyLead();
 
 
   constructor(
@@ -54,6 +36,10 @@ export class SeminarFormComponent {
 
 
   submitForm(): void {
+
+    if (this.isSubmitting) {
+      return;
+    }
 
     this.successMessage = '';
 
@@ -96,7 +82,7 @@ export class SeminarFormComponent {
         },
 
 
-        error: (error) => {
+        error: (error: unknown) => {
 
           console.error(
             'Error submitting lead:',
@@ -104,8 +90,7 @@ export class SeminarFormComponent {
           );
 
 
-          this.errorMessage =
-            'There was a problem submitting your information. Please try again.';
+          this.errorMessage = this.getErrorMessage(error);
 
 
           this.isSubmitting = false;
@@ -119,7 +104,28 @@ export class SeminarFormComponent {
 
   resetForm(): void {
 
-    this.lead = {
+    const emptyLead = this.getEmptyLead();
+
+    // resetForm() clears values and also resets pristine/untouched/submitted state,
+    // which is what prevents fields from re-rendering as invalid/red after a successful submit
+    if (this.leadFormRef) {
+      this.leadFormRef.resetForm(emptyLead);
+    }
+
+    this.lead = emptyLead;
+
+  }
+
+  onMobileNumberChange(value: string): void {
+
+    // strip any non-numeric characters and cap the length at 10 digits
+    this.lead.mobileNumber = value.replace(/\D/g, '').slice(0, 10);
+
+  }
+
+  private getEmptyLead(): Lead {
+
+    return {
 
       fullName: '',
 
@@ -145,10 +151,33 @@ export class SeminarFormComponent {
 
   }
 
-  onMobileNumberChange(value: string): void {
+  private getErrorMessage(error: unknown): string {
 
-    // strip any non-numeric characters and cap the length at 10 digits
-    this.lead.mobileNumber = value.replace(/\D/g, '').slice(0, 10);
+    if (error instanceof TimeoutError) {
+      return 'The server is taking longer than usual to respond. Please try again in a moment.';
+    }
+
+    if (!(error instanceof HttpErrorResponse)) {
+      return 'There was a problem submitting your information. Please try again.';
+    }
+
+    if (error.status === 0) {
+      return 'Unable to reach the server. Please check your internet connection and try again.';
+    }
+
+    if (error.status === 400) {
+      return 'Some of the information provided is invalid. Please review the form and try again.';
+    }
+
+    if (error.status === 409) {
+      return 'It looks like this information has already been submitted.';
+    }
+
+    if (error.status >= 500) {
+      return 'Our server is currently experiencing high demand. Please try again in a few moments.';
+    }
+
+    return 'There was a problem submitting your information. Please try again.';
 
   }
 

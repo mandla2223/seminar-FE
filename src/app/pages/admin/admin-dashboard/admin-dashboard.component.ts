@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { jsPDF } from 'jspdf';
@@ -47,6 +47,20 @@ export class AdminDashboardComponent
   ngOnInit(): void {
 
     this.loadLeads();
+
+  }
+
+
+  // leaving the dashboard via the browser back button must end the session, otherwise
+  // pressing forward would land back on the dashboard without logging in again
+  @HostListener('window:popstate')
+  onBrowserBack(): void {
+
+    this.authService.logout();
+
+    this.router.navigate([
+      '/admin/login'
+    ]);
 
   }
 
